@@ -1,0 +1,17 @@
+URL = {
+    'base': 'https://{proxy}.api.riotgames.com/{url}',
+    'summoner_by_name': 'lol/summoner/v{version}/summoners/by-name/{names}',
+    #'tft_summoner_by_name': 'tft/summoner/v{version}/summoners/by-name/{names}',
+    'summoner_matches_by_puuid': 'lol/match/v{version}/matches/by-puuid/{summoner_puuid}/ids?start={start_date}&count={num_of_matches}'
+}
+
+API_VERSIONS = {
+    'summoner': '4',          #for summoner_by_name
+    #'tft_summoner': '1',
+    'summoner_matches': '5'   #for summoner_matches_by_puuid
+}
+
+REGIONS = {
+    'north_america_1': 'na1', #for summoner_by_name
+    'america': 'americas'     #for summoner_matches_by_puuid
+}
