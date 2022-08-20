@@ -1,8 +1,8 @@
 URL = {
-    'base': 'https://{proxy}.api.riotgames.com/{url}',
-    'summoner_by_name': 'lol/summoner/v{version}/summoners/by-name/{names}',
+    #'base': 'https://{proxy}.api.riotgames.com/{url}',
+    'summoner_by_name': 'https://{proxy}.api.riotgames.com/lol/summoner/v{version}/summoners/by-name/{names}',
     #'tft_summoner_by_name': 'tft/summoner/v{version}/summoners/by-name/{names}',
-    'summoner_matches_by_puuid': 'lol/match/v{version}/matches/by-puuid/{summoner_puuid}/ids?start={start_date}&count={num_of_matches}'
+    'summoner_matches_by_puuid': 'https://{proxy}.api.riotgames.com/lol/match/v{version}/matches/by-puuid/{summoner_puuid}/ids?start={start}&count={num_of_matches}'
 }
 
 API_VERSIONS = {
