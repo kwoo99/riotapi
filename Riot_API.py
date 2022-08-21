@@ -12,8 +12,7 @@ class RiotAPI(object):
             if key not in args:
                 args[key] = value
         response = requests.get(api_url, params=args)
-        print(args)
-        print(response.url)
+        print(f"The request url you are using is:\n{response.url}\n")
         return response.json()
 
     def get_summoner_by_name(self, name):
