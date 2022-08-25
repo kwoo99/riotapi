@@ -7,5 +7,7 @@ def main():
     print (f"Here is the profile of the summoner you requested:\n{sumVal}")
     sumMatch = api.get_summoner_matches(sumVal['puuid'], 0, 5)
     print(f"Here are the ids of the last 5 matches this summoner has participated in:\n{sumMatch}\n") 
+    matchP = api.get_match_participants(sumMatch[0])
+    print(matchP)
 if __name__ == "__main__":
     main()  

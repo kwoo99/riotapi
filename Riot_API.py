@@ -40,3 +40,11 @@ class RiotAPI(object):
             num_of_matches=matchQuant
         )
         return self.requests(api_url)
+
+    def get_match_participants(self, matchID):
+        api_url = Consts.URL['match_by_match_ID'].format(
+            proxy=Consts.REGIONS['america'],
+            version=Consts.API_VERSIONS['match'],
+            matchID=matchID
+        )
+        return self.requests(api_url)
