@@ -3,13 +3,11 @@ import RiotConsts as Consts
 
 
 class RiotAPI(object):
-    def __init__(self,
-                 api_key):  # Contructor that sets the users api_key to be used for the requests, found in # Main.py
+    def __init__(self, api_key):  # Contructor that sets the users api_key to be used for the requests
         self.api_key = api_key
         # self.region = region
 
-    def requests(self, api_url,
-                 params={}):  # function that takes url parameters set by the get_functions and makes a request
+    def requests(self, api_url,  params={}):  # takes url parameters set by get_functions and makes request
         args = {'api_key': self.api_key}
         for key, value in params.items():
             if key not in args:
@@ -34,8 +32,7 @@ class RiotAPI(object):
     #     )
     #     return self.requests(api_url)
 
-    def get_summoner_matches(self, puuid, startNum,
-                             matchQuant):  # Gets the summoners match history, can specify how many matches
+    def get_summoner_matches(self, puuid, startNum, matchQuant):  # Gets summoners match history
         api_url = Consts.URL['summoner_matches_by_puuid'].format(
             proxy=Consts.REGIONS['america'],
             version=Consts.API_VERSIONS['summoner_matches'],
