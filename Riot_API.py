@@ -3,7 +3,7 @@ import RiotConsts as Consts
 
 
 class RiotAPI(object):
-    def __init__(self, api_key):  # Contructor that sets the users api_key to be used for the requests
+    def __init__(self, api_key):  # Constructor that sets the users api_key to be used for the requests
         self.api_key = api_key
         # self.region = region
 
@@ -22,6 +22,7 @@ class RiotAPI(object):
             version=Consts.API_VERSIONS['summoner'],
             names=name
         )
+        print(self.requests(api_url))
         return self.requests(api_url)
 
     # Does essentially the same thing as get_summoner_name()
