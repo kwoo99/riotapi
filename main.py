@@ -1,26 +1,27 @@
-from Riot_API import RiotAPI
-# Riot API
-# Benjamin Fuller & Kyle Woo
+from lolAPI import lol_Comp
 
+region = 'na1'
+sum_Team = ['']
+api_key = 'RGAPI-c0c2fb1c-5697-4d1b-ac5e-fc68de279e41'
 
-def main():
-  # Put your Riot API key here below (new key every 24 hours)
-  apiKey = ""
-  api = RiotAPI(apiKey)
-  sum_name = input('Please enter summoner name:')
-  sumVal = api.get_summoner_by_name(sum_name)
-  print("Here is the profile of the summoner you requested:\n")
-  print(
-    f"Name:{sumVal['name']}\nSummoner Level:{sumVal['summonerLevel']}\nPuuid:{sumVal['puuid']}"
-  )
-  sumMatch = api.get_summoner_matches(sumVal['puuid'], 0, 5)
-  print(
-    f"Here are the ids of the last 5 matches this summoner has participated in:\n{sumMatch}\n"
-  )
+sum_Team = ['someonesleftnut', 'hideonbush', 'Doublelift', 'trashley12345', 'flyingsquirrelly']
 
-  matchP = api.get_match_details(sumMatch[0])
-  print(matchP['participants'])
+# print("Please enter 5 summoner names to form a team:\n")
 
+# for i in range(len(sum_Team)):
+#   sum_Team[i] = input(f'Summoner {i+1}:')
 
-if __name__ == "__main__":
-  main()
+player_Party_Profs = lol_Comp(api_key, region, sum_Team)
+player_Party_Profs.create_Team()
+
+for i in range(len(player_Party_Profs.team)):
+  print(f"{sum_Team[i]}'s info:\n{player_Party_Profs.get_Team_Info()[i]}\n")
+  
+print(f"{player_Party_Profs.team_Lvl_Compare()} is the highest level.\n")
+
+for i in range(len(player_Party_Profs.team)):
+  print(f"{player_Party_Profs.team[i]}'s match id(s):\n{player_Party_Profs.get_Match()[i]}\n")
+
+player_Kill_Comp = player_Party_Profs.team_Kills_Compare()
+
+print(f"{player_Kill_Comp['kl_Name']} achieved the most kills: {player_Kill_Comp['kl_Kills']}")
