@@ -2,7 +2,7 @@ from lolAPI import lol_Comp
 
 region = 'na1'
 sum_Team = ['']
-api_key = 'RGAPI-c0c2fb1c-5697-4d1b-ac5e-fc68de279e41'
+api_key = ''
 
 sum_Team = ['someonesleftnut', 'hideonbush', 'Doublelift', 'trashley12345', 'flyingsquirrelly']
 
