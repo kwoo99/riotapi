@@ -83,11 +83,3 @@ class lol_Comp:
     leader_Prof['kl_Name'] = kill_Leader
     leader_Prof['kl_Kills'] = most_Kills
     return leader_Prof
-    # print(converted_Results[''])
-        
-# Read in full match data for MATCH_LIMIT matches
-    # highest_Kills = 0
-    # for i in range(len(self.team)):
-    #   if self.prof.match.by_id(self.team_List[i]['puuid'])['kills'] > highest_Kills:
-
-

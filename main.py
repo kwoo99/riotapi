@@ -1,15 +1,16 @@
 from lolAPI import lol_Comp
 
 region = 'na1'
-sum_Team = ['']
-api_key = ''
+sum_Team = []
+api_key = 'RGAPI-5cc939e3-30d1-49ee-b2e7-6456412a25f1'
 
-sum_Team = ['someonesleftnut', 'hideonbush', 'Doublelift', 'trashley12345', 'flyingsquirrelly']
+# sum_Team = ['someonesleftnut', 'hideonbush', 'Doublelift', 'trashley12345', 'flyingsquirrelly']
 
-# print("Please enter 5 summoner names to form a team:\n")
+team_Size = int(input("How many summoners will we be comparing?\n"))
+print(f"Please enter {team_Size} summoner names to form a team:\n")
 
-# for i in range(len(sum_Team)):
-#   sum_Team[i] = input(f'Summoner {i+1}:')
+for i in range(team_Size):
+  sum_Team.append(input(f'Summoner {i+1}:'))
 
 player_Party_Profs = lol_Comp(api_key, region, sum_Team)
 player_Party_Profs.create_Team()
