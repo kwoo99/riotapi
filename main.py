@@ -4,7 +4,7 @@ region = 'na1'
 sum_Team = []
 api_key = ''
 
-team_Size = int(input("Please specify team size:"))
+team_Size = int(input("Please specify a team size:"))
 
 print(f"Please enter {team_Size} summoner names to form the team:\n")
 
@@ -26,3 +26,9 @@ player_Kill_Comp = player_Party_Profs.team_Kills_Compare(4)
 
 print(f"{player_Kill_Comp['kill_Leader']} achieved the most kills: {player_Kill_Comp['most_Kills']}\n{player_Kill_Comp['kill_Loser']} achieved the least kills:{player_Kill_Comp['least_Kills']}\nAverage kills for all games is {player_Kill_Comp['av_Kills']}")
 
+player_Rank_Comp = player_Party_Profs.team_Rank_Compare()
+
+if player_Rank_Comp == None:
+  print("Your entire team is unranked and therefore does not have a rank average.")
+else:
+  print(f"Average player rank in party: {player_Party_Profs.team_Rank_Compare()}\n")
