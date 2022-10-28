@@ -45,7 +45,7 @@ class lol_Comp:
       'GRANDMASTERIII': 31,
       'GRANDMASTERIV': 32,
       'CHALLENGERI': 33, 
-      0: 'Unranked',
+      0: 'UNRANKED',
       1: 'IRON I',
       2: 'IRON II',
       3: 'IRON III',
@@ -106,30 +106,55 @@ class lol_Comp:
     return final_List
 
   def team_Rank_Compare(self):
-  # Returns the average rank of all summoners in the party
+  # Returns the highest and lowest ranking summoner as well as average rank of all summoners in the party
     summ_Ranks = []
+    rank_Summary = {
+      'best_Rank': '', 
+      'least_Rank': '', 
+      'rank_Leader': self.team[0], 
+      'rank_Loser': self.team[0],
+      'average_Rank': '',
+      'unranked_Members': []
+    }
+    best_Rank_Val = 0
+    least_Rank_Val = 34
+    
     no_Rank_Deduct = 0 # not sure if this does anything
-    for i in range(len(self.team) - no_Rank_Deduct):
+    
+    for i in range(len(self.team) - no_Rank_Deduct): # Traverses through the team to get each ranked profile
       rank_Prof = self.watcher.league.by_summoner(self.region, self.team_List[i]['id'])
-      if rank_Prof != []:
+      
+      if rank_Prof != []: # Checks if the summoner has a ranked profile
         summ_Rank = rank_Prof[0]['tier'] + rank_Prof[0]['rank']
         summ_Ranks.append(self.lol_Ranks[summ_Rank])
-    print(summ_Ranks)
-    if len(summ_Ranks) < 1:
+        
+        print(f"{self.team[i]}: {rank_Prof[0]['tier']} {rank_Prof[0]['rank']}\n")
+        
+        if self.lol_Ranks[summ_Rank] > best_Rank_Val: # Checks if the current summoner has the highest rank and sets it if they do
+          best_Rank_Val = self.lol_Ranks[summ_Rank] 
+          rank_Summary['rank_Leader'] = self.team[i]
+          rank_Summary['best_Rank'] = self.lol_Ranks[self.lol_Ranks[summ_Rank]]
+          
+        if self.lol_Ranks[summ_Rank] < least_Rank_Val: # Checks if the current summoner has the lowest rank and sets it if they do
+          least_Rank_Val = self.lol_Ranks[summ_Rank]
+          rank_Summary['rank_Loser'] = self.team[i]
+          rank_Summary['least_Rank'] = self.lol_Ranks[self.lol_Ranks[summ_Rank]]
+      else:
+        rank_Summary['unranked_Members'].append(self.team[i])
+        
+    if len(summ_Ranks) < 1: # If there were no ranked summoners found
       no_Rank_Deduct += 1
       return None
-    return self.lol_Ranks[int(round(mean(summ_Ranks)))]
+      
+    rank_Summary['average_Rank'] = self.lol_Ranks[int(round(mean(summ_Ranks)))]
+    return rank_Summary
     
   def team_Kills_Compare(self, match_Quant):
   # Returns summoner in the team with the highest number of kills from the last x matches.
     target_Matches = []
     sum_Kills = []
     kills = 0
-    kill_Leader = self.team[0]
-    kill_Loser = self.team[0]
-    most_Kills = 0
-    least_Kills = 99999
-    kill_Summary = {'kill_Leader': '', 'most_Kills': 0, 'kill_Loser': '', 'least_Kills': 0, 'av_Kills': 0}
+    kill_Summary = {'kill_Leader': self.team[0], 'most_Kills': 0, 'kill_Loser': self.team[0], 'least_Kills': 99999, 'av_Kills': 0}
     
     for i in range(len(self.team)): 
     # Populates target matches with list of x matches for each summoner
@@ -157,19 +182,16 @@ class lol_Comp:
       kills = 0
       print(sum_Kills)
       
-      if sum_Kills[i] > most_Kills: # Determines which player has the most total kills
-        most_Kills = sum_Kills[i]
-        kill_Leader = self.team[i]
-      if sum_Kills[i] < least_Kills:
-        least_Kills = sum_Kills[i]
-        kill_Loser = self.team[i]
+      if sum_Kills[i] > kill_Summary['most_Kills']: # Determines which player has the most total kills
+        kill_Summary['most_Kills'] = sum_Kills[i]
+        kill_Summary['kill_Leader'] = self.team[i]
         
-    kill_Summary['kill_Leader'] = kill_Leader
-    kill_Summary['kill_Loser'] = kill_Loser
-    kill_Summary['most_Kills'] = most_Kills
-    kill_Summary['least_Kills'] = least_Kills
-    kill_Summary['av_Kills'] = sum(sum_Kills) / len(self.team)
+      if sum_Kills[i] < kill_Summary['least_Kills']: # Determines which player has the least kills
+        kill_Summary['least_Kills'] = sum_Kills[i]
+        kill_Summary['kill_Loser'] = self.team[i]
+        
+    kill_Summary['av_Kills'] = int(sum(sum_Kills) / len(self.team))
     
     return kill_Summary # Returns a dict containing the player with highest kill's name and kill total
 
-  
+  def team_Compare_
