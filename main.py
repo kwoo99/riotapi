@@ -1,37 +1,27 @@
-from lolAPI import lol_Comp
+from lolTeam import *
+from lolAPI import *
 
 region = 'na1'
 sum_Team = []
 api_key = ''
 
 sum_Team = ['someonesleftnut', 'chiva11', 'flyingsquirrelly','trashley12345']
-# team_Size = int(input("Please specify a team size:"))
 
-# print(f"Please enter {team_Size} summoner names to form the team:\n")
+player_Party = lol_Team(api_key, region, sum_Team)
 
-# for i in range(0, team_Size):
-#   sum_Team.append(input(f'Summoner {i+1}:'))
-# print('')
+player_Party.create_Team()
 
-player_Party_Profs = lol_Comp(api_key, region, sum_Team)
-player_Party_Profs.create_Team()
+for i in range(len(sum_Team)):
+  print(f"Summoner Name:{player_Party.profiles[i]['name']}\nSummoner Level:{player_Party.profiles[i]['summonerLevel']}\nID:{player_Party.profiles[i]['id']}\nAccount ID:{player_Party.profiles[i]['id']}\nPUUID:{player_Party.profiles[i]['puuid']}\nProfile Icon ID:{player_Party.profiles[i]['profileIconId']}\nRevison Date:{player_Party.profiles[i]['revisionDate']}\n")
 
-for i in range(len(player_Party_Profs.team)):
-  print(f"{sum_Team[i]}'s Profile:\n{player_Party_Profs.get_Team_Info()[i]}\n")
+print(player_Party.match_Profiles)
+
+kill_Summary = team_Kills_Compare(player_Party, 8)
+
+print(f"{kill_Summary['kill_Leader']} achieved the most kills in your party: {kill_Summary['most_Kills']}\n{kill_Summary['kill_Loser']} achieved the least kills in your party: {kill_Summary['least_Kills']}\nAverage kills in the party was {kill_Summary['av_Kills']}\n")
+
+rank_Summary = team_Rank_Compare(player_Party)
+
+print(f"Highest ranking member in the party is {rank_Summary['rank_Leader']}: {rank_Summary['best_Rank']}\nLowest ranking member in the party is {rank_Summary['rank_Loser']}: {rank_Summary['least_Rank']}\nAverage rank in the party is {rank_Summary['average_Rank']} ")
 
 
-for i in range(len(player_Party_Profs.team)):
-  print(f"{player_Party_Profs.team[i]}'s match id(s):\n{player_Party_Profs.get_Match(8)[i]}\n")
-
-player_Kill_Comp = player_Party_Profs.team_Kills_Compare(4)
-
-print(f"{player_Kill_Comp['kill_Leader']} achieved the most kills: {player_Kill_Comp['most_Kills']}\n{player_Kill_Comp['kill_Loser']} achieved the least kills:{player_Kill_Comp['least_Kills']}\nAverage kills for all games is {player_Kill_Comp['av_Kills']}\n")
-
-player_Rank_Comp = player_Party_Profs.team_Rank_Compare()
-
-if player_Rank_Comp == None:
-  print("Your entire team is unranked and therefore does not have a rank average.")
-else:
-  print(f"Your team's highest ranking member is {player_Rank_Comp['rank_Leader']}: {player_Rank_Comp['best_Rank']}\nYour team's lowest ranking member is {player_Rank_Comp['rank_Loser']}: {player_Rank_Comp['least_Rank']}\nAverage Rank for the team: {player_Rank_Comp['average_Rank']}\nYour unranked members include:")
-  for i in range(len(player_Rank_Comp['unranked_Members'])):
-    print(player_Rank_Comp['unranked_Members'][i])
