@@ -1,3 +1,6 @@
+# lolTeam.py
+# This file holds functions used to analyze team statistics and give specific results and acknowledgements based off of them. 
+
 from riotwatcher import *
 from statistics import *
 from lolAPI import *
@@ -130,13 +133,11 @@ def team_Rank_Compare(team):
   rank_Summary['average_Rank'] = lol_Ranks[int(round(mean(summ_Ranks)))]
   return rank_Summary # Returns a dict containing rank information
   
-#TEAM KILLS COMPARE****************************************************************************
-def team_Kills_Compare(team, match_Quant):
-# Returns summoner in the team with the highest number of kills from the last x matches.
-  print(team.roster[0])
-  sum_Kills = []
-  kills = 0
-  kill_Summary = {'kill_Leader': team.roster[0], 'most_Kills': 0, 'kill_Loser': team.roster[0], 'least_Kills': 99999, 'av_Kills': 0}
+#Stat COMPARE****************************************************************************
+def team_Stat_Compare(team, target_Stat, match_Quant):
+  sum_Stat = []
+  stat = 0
+  stat_Summary = {'stat_Leader': team.roster[0], 'most_Stat': 0, 'stat_Loser': team.roster[0], 'least_Stat': 999999, 'stat_Average': None}
   
   team.get_Matches(match_Quant)
   # Populates target matches with list of x matches for each summoner
@@ -144,34 +145,50 @@ def team_Kills_Compare(team, match_Quant):
   
   for i in range(len(team.match_Profiles)):
   # Traverses the target matches for each summoner
-    print(f"Processing {team.roster[i]}'s kills:")
+    print(f"Processing {target_Stat} for {team.roster[i]}:")
     for j in range(len(team.match_Profiles[i])):
     # Creates an api call to fetch details for the ith match 
-      print(f"{team.roster[i]}'s kills for match {team.match_Profiles[i][j]}:")
+      print(f"{team.roster[i]}'s {target_Stat} for match {team.match_Profiles[i][j]}:")
       match_Results = team.get_Match_Data(team.match_Profiles[i][j])
       converted_Results = match_Results['info']['participants']
 
       for x in range(len(converted_Results)):
       # Traverses participants in the match data to find a matching puuid from team list
         if converted_Results[x]['puuid'] == team.profiles[i]['puuid']:
-        # If puuid is recognized, adds kills to summoner's total kills
-          print(converted_Results[x]['kills'])
-          kills = kills + converted_Results[x]['kills']
+        # If puuid is recognized, adds specified stat to summoner's total of the specified stat
+          print(converted_Results[x][target_Stat])
+          stat = stat + converted_Results[x][target_Stat]
           
-    sum_Kills.append(kills) # Appends each players total kills to a list and resets kill count for next player
-    kills = 0
-    print(sum_Kills)
+    sum_Stat.append(stat) # Appends each players total of the specified stat to a list and resets specified stat count for next player
+    stat = 0
+    print(sum_Stat)
     
-    if sum_Kills[i] > kill_Summary['most_Kills']: # Determines which player has the most total kills
-      kill_Summary['most_Kills'] = sum_Kills[i]
-      kill_Summary['kill_Leader'] = team.roster[i]
+    if sum_Stat[i] > stat_Summary['most_Stat']: # Determines which player has the most the specified stat
+      stat_Summary['most_Stat'] = sum_Stat[i]
+      stat_Summary['stat_Leader'] = team.roster[i]
       
-    if sum_Kills[i] < kill_Summary['least_Kills']: # Determines which player has the least kills
-      kill_Summary['least_Kills'] = sum_Kills[i]
-      kill_Summary['kill_Loser'] = team.roster[i]
+    if sum_Stat[i] < stat_Summary['least_Stat']: # Determines which player has the least of the specified stat
+      stat_Summary['least_Stat'] = sum_Stat[i]
+      stat_Summary['stat_Loser'] = team.roster[i]
       
-  kill_Summary['av_Kills'] = int(sum(sum_Kills) / len(team.roster))
-  
-  return kill_Summary # Returns a dict containing kill information
-  
-#***********************************************************************************************
+  stat_Summary['stat_Average'] = int(sum(sum_Stat) / len(team.roster))
+
+  return stat_Summary # Returns a dict containing stats
+
+def save_Team_Prof(team_Profile):
+  profile = {}
+  for i in range(len(team_Profile.roster)):
+    prof = {
+      'name': team_Profile.roster[i],
+      'level': team_Profile.profiles[i]['summonerLevel'],
+      'id': team_Profile.profiles[i]['id'],
+      'puuid': team_Profile.profiles[i]['puuid'],
+      'acctid': team_Profile.profiles[i]['accountId'],
+      'achievements': []
+    }
+    profile.update(prof)
+    save_Profile = json.dumps(prof, indent=4)
+   
+    with open("profiles.json", "a") as outfile:
+        outfile.write(save_Profile)
+

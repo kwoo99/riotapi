@@ -1,3 +1,6 @@
+# lolPAI.py
+# This file holds all the basic class variables as well as functions to initialize various profiles for a party of summoners by performing api calls using the riotwatcher library
+
 from riotwatcher import *                   
 from statistics import *
 import json
@@ -5,6 +8,7 @@ import json
 class lol_Team:
   
   def __init__(self, api_key, region, roster):
+    self.prof_Name = f"{roster}"
     self.api_key = api_key
     self.region = region
     self.roster = roster
@@ -18,6 +22,8 @@ class lol_Team:
     self.match_Quant = 0
     self.queue_Type = None
     self.start_Time = None
+
+    
     
     # Object used to fetch api requests
     self.watcher = LolWatcher(self.api_key, default_status_v4=True)
