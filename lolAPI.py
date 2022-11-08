@@ -28,7 +28,7 @@ class lol_Team:
     # Object used to fetch api requests
     self.watcher = LolWatcher(self.api_key, default_status_v4=True)
     
-#CREATE TEAM************************************************************************************
+#CREATE TEAM----------------------------------------------------------------------------------------------------
   def create_Team(self): 
   # Creates a list of lolwatcher objects using the list of team names given by user.
     for i in range(len(self.roster)):
@@ -36,7 +36,7 @@ class lol_Team:
     for i in range (len(self.roster)):
       self.rank_Profiles.append(self.watcher.league.by_summoner(self.region, self.profiles[i]['id']))
   
-#GET MATCH**************************************************************************************
+#GET MATCH------------------------------------------------------------------------------------------------------
   def get_Matches(self, match_Quant):
   # Returns a list of the last x matches for each summoner in the team.
     match_List = []
@@ -46,7 +46,7 @@ class lol_Team:
       
     self.match_Profiles = match_List
     
-#Get Match Data********************************************************************************
+#Get Match Data--------------------------------------------------------------------------------------------------
   def get_Match_Data(self, match):
   # Returns the details for the match list specified for each summoner on the team
     return self.watcher.match.by_id(self.region, match)

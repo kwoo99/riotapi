@@ -13,7 +13,7 @@ sum_Team3 = ['goawayannaokbye', 'chiva11', 'flyingsquirrelly','zaffreX']
 
 sum_Team4 = ['doublelift', 'chiva11', 'flyingsquirrelly','zaffreX']
 
-sum_Team5 = ['goawayannaokbye', 'chiva11', 'flyingsquirrelly','zaffreX']
+sum_Team5 = ['someonesleftnut', 'chiva11', 'flyingsquirrelly','trashley12345']
 
 player_Party = lol_Team(api_key, region, sum_Team)
 
@@ -21,9 +21,9 @@ player_Party2 = lol_Team(api_key, region, sum_Team2)
 
 player_Party3 = lol_Team(api_key, region, sum_Team3)
 
-player_Party4 = lol_Team(api_key, region, sum_Team4)
+player_Party4 = lol_Team(api_key, region, sum_Team4)                             
 
-# player_Party5 = lol_Team(api_key, region, sum_Team5)
+player_Party5 = lol_Team(api_key, region, sum_Team5)
 
 player_Party.create_Team()
 
@@ -33,7 +33,7 @@ player_Party3.create_Team()
 
 player_Party4.create_Team()
 
-# player_Party5.create_Team()
+player_Party5.create_Team()
 
 # for i in range(len(sum_Team)):
 #   print(f"Summoner Name:{player_Party.profiles[i]['name']}\nSummoner Level:{player_Party.profiles[i]['summonerLevel']}\nID:{player_Party.profiles[i]['id']}\nAccount ID:{player_Party.profiles[i]['id']}\nPUUID:{player_Party.profiles[i]['puuid']}\nProfile Icon ID:{player_Party.profiles[i]['profileIconId']}\nRevison Date:{player_Party.profiles[i]['revisionDate']}\n")
@@ -60,4 +60,4 @@ save_Team_Prof(player_Party3, 'Prof 3')
 
 save_Team_Prof(player_Party4, 'Prof 4')
 
-# save_Team_Prof(player_Party5, 'Prof 5')
+save_Team_Prof(player_Party5, 'Prof 5')

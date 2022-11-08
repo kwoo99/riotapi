@@ -133,7 +133,7 @@ def team_Rank_Compare(team):
   rank_Summary['average_Rank'] = lol_Ranks[int(round(mean(summ_Ranks)))]
   return rank_Summary # Returns a dict containing rank information
   
-#Stat COMPARE****************************************************************************
+#Stat COMPARE-----------------------------------------------------------------------------------------------------
 def team_Stat_Compare(team, target_Stat, match_Quant):
   sum_Stat = []
   stat = 0
@@ -181,10 +181,11 @@ def team_Stat_Compare(team, target_Stat, match_Quant):
 
   return stat_Summary # Returns a dict containing stats
 
+# SAVE TEAM PROFILE--------------------------------------------------------------------------------------------------
 def save_Team_Prof(team_Profile, prof_Name):
   profiles_List = []
   profiles = {}
-  isDuplicate = True
+  isDuplicate = False
   isEmpty = False
   for i in range(len(team_Profile.roster)):
     prof = {
@@ -203,13 +204,10 @@ def save_Team_Prof(team_Profile, prof_Name):
       data = json.load(jsonFile)
       for i in range(len(data)):
         profiles_List.append(data[i])
-      print("Debug 1")
     except:
       isEmpty = True
-      print("Debug 2")
       
   if isEmpty:
-    print("Debug 3")
     profiles_List.append(profiles)
     save_Profile = json.dumps(profiles_List, indent=4)
     with open("profiles.json", "w") as outfile:
@@ -219,43 +217,26 @@ def save_Team_Prof(team_Profile, prof_Name):
     for i in range(len(profiles) - 1):
       tempProf[f'Prof {i + 1}'] = profiles[f'Prof {i + 1}']
     for i in range(len(data)):
+      if isDuplicate == True:
+        break
       tempDataProf = {}
-    # print("Debug 4")
-    # print(f"There exist {len(data)} profile list(s)")
-    # for i in range(len(data)):
-    #   if isDuplicate == False:
-    #     break
-    #   print(f"Length of data:{len(data)}")
-    #   print(f"Current iteration of i:{i}")
-    #   for j in range(len(data[i]) - 1):
-    #     if isDuplicate == False:
-    #       break
-    #     print(f"Length of data[i]: {len(data[i])}")
-    #     print(f"Current iteration of j:{j}")
-    #     for x in range(len(profiles_List)):
-    #       if isDuplicate == False:
-    #         break
-    #       print(data[i][f'Prof {j + 1}']['puuid'])
-    #       print("-------------------------------------------")
-    #       print(profiles[f'Prof {x + 1}']['puuid'])
-    #       if data[i][f'Prof {j+1}']['puuid'] == profiles[f'Prof {x + 1}']['puuid']:
-    #         print("Debug 5")
-    #         isDuplicate = True
-    #       else:
-    #         print("Debug 6")
-    #         print(f"{profiles_List[i][f'Prof {x + 1}']['name']} is different.\n")
-    #         isDuplicate = False
-    #         break
-          
+      for j in range(len(data[i]) - 1):
+        if isDuplicate == True:
+          break
+        tempDataProf[f'Prof {j + 1}'] = data[i][f'Prof {j + 1}']
+      if tempProf == tempDataProf:
+        isDuplicate = True
+        break
+        print("This profile list is a duplicate.\n")
+
     print(f"{profiles['prof_List_Name']} is a duplicate profile is {isDuplicate}")
     
     if isDuplicate == False:
-      print("Debug 7")
       profiles_List.append(profiles)
       save_Profile = json.dumps(profiles_List, indent=4)
       with open("profiles.json", "w") as outfile:
         outfile.write(save_Profile)
-          
-   
+# --------------------------------------------------------------------------------------------------
+
     
 
