@@ -137,7 +137,13 @@ def team_Rank_Compare(team):
 def team_Stat_Compare(team, target_Stat, match_Quant):
   sum_Stat = []
   stat = 0
-  stat_Summary = {'stat_Leader': team.roster[0], 'most_Stat': 0, 'stat_Loser': team.roster[0], 'least_Stat': 999999, 'stat_Average': None}
+  stat_Summary = {
+    'stat_Leader': team.roster[0],
+    'most_Stat': 0, 
+    'stat_Loser': team.roster[0],
+    'least_Stat': 999999,
+    'stat_Average': None
+  }
   
   team.get_Matches(match_Quant)
   # Populates target matches with list of x matches for each summoner
@@ -175,8 +181,11 @@ def team_Stat_Compare(team, target_Stat, match_Quant):
 
   return stat_Summary # Returns a dict containing stats
 
-def save_Team_Prof(team_Profile):
-  profile = {}
+def save_Team_Prof(team_Profile, prof_Name):
+  profiles_List = []
+  profiles = {}
+  isDuplicate = True
+  isEmpty = False
   for i in range(len(team_Profile.roster)):
     prof = {
       'name': team_Profile.roster[i],
@@ -186,9 +195,67 @@ def save_Team_Prof(team_Profile):
       'acctid': team_Profile.profiles[i]['accountId'],
       'achievements': []
     }
-    profile.update(prof)
-    save_Profile = json.dumps(prof, indent=4)
-   
-    with open("profiles.json", "a") as outfile:
+    profiles['prof_List_Name'] = prof_Name
+    profiles[f'Prof {i + 1}'] = prof
+  
+  with open("profiles.json") as jsonFile:
+    try:
+      data = json.load(jsonFile)
+      for i in range(len(data)):
+        profiles_List.append(data[i])
+      print("Debug 1")
+    except:
+      isEmpty = True
+      print("Debug 2")
+      
+  if isEmpty:
+    print("Debug 3")
+    profiles_List.append(profiles)
+    save_Profile = json.dumps(profiles_List, indent=4)
+    with open("profiles.json", "w") as outfile:
+      outfile.write(save_Profile)
+  else:
+    tempProf = {}
+    for i in range(len(profiles) - 1):
+      tempProf[f'Prof {i + 1}'] = profiles[f'Prof {i + 1}']
+    for i in range(len(data)):
+      tempDataProf = {}
+    # print("Debug 4")
+    # print(f"There exist {len(data)} profile list(s)")
+    # for i in range(len(data)):
+    #   if isDuplicate == False:
+    #     break
+    #   print(f"Length of data:{len(data)}")
+    #   print(f"Current iteration of i:{i}")
+    #   for j in range(len(data[i]) - 1):
+    #     if isDuplicate == False:
+    #       break
+    #     print(f"Length of data[i]: {len(data[i])}")
+    #     print(f"Current iteration of j:{j}")
+    #     for x in range(len(profiles_List)):
+    #       if isDuplicate == False:
+    #         break
+    #       print(data[i][f'Prof {j + 1}']['puuid'])
+    #       print("-------------------------------------------")
+    #       print(profiles[f'Prof {x + 1}']['puuid'])
+    #       if data[i][f'Prof {j+1}']['puuid'] == profiles[f'Prof {x + 1}']['puuid']:
+    #         print("Debug 5")
+    #         isDuplicate = True
+    #       else:
+    #         print("Debug 6")
+    #         print(f"{profiles_List[i][f'Prof {x + 1}']['name']} is different.\n")
+    #         isDuplicate = False
+    #         break
+          
+    print(f"{profiles['prof_List_Name']} is a duplicate profile is {isDuplicate}")
+    
+    if isDuplicate == False:
+      print("Debug 7")
+      profiles_List.append(profiles)
+      save_Profile = json.dumps(profiles_List, indent=4)
+      with open("profiles.json", "w") as outfile:
         outfile.write(save_Profile)
+          
+   
+    
 
