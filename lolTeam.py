@@ -149,7 +149,7 @@ def team_Stat_Compare(team, target_Stat, match_Quant):
   # Populates target matches with list of x matches for each summoner
   print(f"Target Matches:\n{team.match_Profiles}")
   
-  for i in range(len(team.match_Profiles)):
+  for i in range(len(team.roster)):
   # Traverses the target matches for each summoner
     print(f"Processing {target_Stat} for {team.roster[i]}:")
     for j in range(len(team.match_Profiles[i])):
@@ -178,6 +178,7 @@ def team_Stat_Compare(team, target_Stat, match_Quant):
       stat_Summary['stat_Loser'] = team.roster[i]
       
   stat_Summary['stat_Average'] = int(sum(sum_Stat) / len(team.roster))
+  sum_Stat = []
 
   return stat_Summary # Returns a dict containing stats
 
@@ -227,7 +228,6 @@ def save_Team_Prof(team_Profile, prof_Name):
       if tempProf == tempDataProf:
         isDuplicate = True
         break
-        print("This profile list is a duplicate.\n")
 
     print(f"{profiles['prof_List_Name']} is a duplicate profile is {isDuplicate}")
     

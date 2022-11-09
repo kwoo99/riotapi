@@ -39,12 +39,12 @@ class lol_Team:
 #GET MATCH------------------------------------------------------------------------------------------------------
   def get_Matches(self, match_Quant):
   # Returns a list of the last x matches for each summoner in the team.
-    match_List = []
+    # match_List = []
     print(self.roster)
     for i in range(len(self.roster)):
-      match_List.append(self.watcher.match.matchlist_by_puuid(self.region, self.profiles[i]['puuid'], None, match_Quant))
+      self.match_Profiles.append(self.watcher.match.matchlist_by_puuid(self.region, self.profiles[i]['puuid'], None, match_Quant))
       
-    self.match_Profiles = match_List
+    # self.match_Profiles = match_List
     
 #Get Match Data--------------------------------------------------------------------------------------------------
   def get_Match_Data(self, match):
