@@ -2,8 +2,6 @@
 # This file holds functions used to analyze team statistics
 # and give specific results and acknowledgements based off of them.
 
-from riotwatcher import *
-from statistics import *
 from lolAPI import *
 import json
 
@@ -241,4 +239,3 @@ def save_Team_Prof(team_Profile, prof_Name):
             save_Profile = json.dumps(profiles_List, indent=4)
             with open("profiles.json", "w") as outfile:
                 outfile.write(save_Profile)
-# --------------------------------------------------------------------------------------------------

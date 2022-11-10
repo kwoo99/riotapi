@@ -43,11 +43,7 @@ print(
 # print(f"Highest ranking member in the party is {rank_Summary['rank_Leader']}: {rank_Summary['best_Rank']}\nLowest ranking member in the party is {rank_Summary['rank_Loser']}: {rank_Summary['least_Rank']}\nAverage rank in the party is {rank_Summary['average_Rank']} ")
 
 save_Team_Prof(player_Party, 'Prof 1')
-
 save_Team_Prof(player_Party2, 'Prof 2')
-
 save_Team_Prof(player_Party3, 'Prof 3')
-
 save_Team_Prof(player_Party4, 'Prof 4')
-
 save_Team_Prof(player_Party5, 'Prof 5')
