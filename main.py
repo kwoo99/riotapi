@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+#  Main script
+#  Pulls LoL player data from Riot Watcher to interpret for custom stat showcasing
+
 from lolTeam import *
 from lolAPI import *
 
