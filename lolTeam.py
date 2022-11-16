@@ -2,6 +2,7 @@
 # This file holds functions used to analyze team statistics
 # and give specific results and acknowledgements based off of them.
 
+# imports
 from lolAPI import *
 import json
 

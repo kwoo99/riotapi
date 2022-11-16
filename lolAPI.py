@@ -2,6 +2,7 @@
 # This file holds all the basic class variables as well as functions to initialize various profiles
 # for a party of summoners by performing api calls using the riotwatcher library
 
+# imports
 from riotwatcher import *
 from statistics import *
 import json

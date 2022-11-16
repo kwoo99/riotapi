@@ -2,6 +2,7 @@
 #  Main script
 #  Pulls LoL player data from Riot Watcher to interpret for custom stat showcasing
 
+# imports
 from lolTeam import *
 from lolAPI import *
 
