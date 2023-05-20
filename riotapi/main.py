@@ -2,7 +2,7 @@ from lolTeam import *
 from lolAPI import *
 
 region = 'na1'
-api_key = 'RGAPI-133bd6ec-3fe3-4543-97eb-15731c07173f'
+api_key = 'RGAPI-7e198352-3c09-4b2b-b36c-069a83fd82c4'
 sum_Team = ['someonesleftnut', 'chiva11', 'flyingsquirrelly', 'trashley12345']
 sum_Team2 = ['someonesleftnut', 'epilly', 'flyingsquirrelly', 'trashley12345']
 sum_Team3 = ['goawayannaokbye', 'chiva11', 'flyingsquirrelly', 'zaffreX']
