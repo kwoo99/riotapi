@@ -1,7 +1,7 @@
-import Request from './components/Request';
+import Request from "./components/Request";
 
 function App() {
-  return(
+  return (
     <div>
       <h1>Riot Teams</h1>
       <Request />

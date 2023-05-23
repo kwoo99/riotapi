@@ -4,13 +4,34 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/")
+
+@app.route("/profiles")
 def teams():
-    # d = open('/Users/kylewoo/Documents/GitHub/riotapi/riotapi/profiles.json')
-    # data = json.load(d)
-    return 'hello'
+    d = open('../riotapi/profiles.json')
+    data = json.load(d)
+    rex = {
+        "y": {
+        "a": "h",
+        "b": "g",
+        "c": "r",
+        "d": "e"
+    },
+        "j": {
+        "a": "h",
+        "b": "g",
+        "c": "r",
+        "d": "e"
+    },
+        "k": {
+        "a": "h",
+        "b": "g",
+        "c": "r",
+        "d": "e"
+    }
+    }
+    
+    return rex
+
 
 if '__name__' == "__main__":
-    app.run(host = '0.0.0.0', port = 5000) 
-    d = open('/Users/kylewoo/Documents/GitHub/riotapi/riotapi/profiles.json')
-    data_ = json.load(d)
+    app.run(host='0.0.0.0', port=5000)
