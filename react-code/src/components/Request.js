@@ -31,7 +31,7 @@ function Request(props) {
 function getData() {
     axios({
         method: "GET",
-        url: "/profiles",
+        url: "http://localhost:5000/profiles"
     })
     .then((response) => {
         const res =response.data
